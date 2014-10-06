@@ -60,6 +60,8 @@
       scrollToElement: true,
       /* Set the overlay opacity */
       overlayOpacity: 0.8,
+      /* Should we skip steps where we can't find the element? */
+      skipStepsWithMissingElement: false,
       /* Precedence of positions, when auto is enabled */
       positionPrecedence: ["bottom", "top", "right", "left"],
       /* Disable an interaction with element? */
@@ -91,6 +93,9 @@
         if (typeof(currentItem.element) === 'string') {
           //grab the element with given selector from the page
           currentItem.element = document.querySelector(currentItem.element);
+          if (typeof(currentItem.element) === 'undefined' && this._options.skipStepsWithMissingElement) {
+            continue;
+          }
         }
 
         //intro without element
